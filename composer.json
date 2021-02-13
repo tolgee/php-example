@@ -1,0 +1,15 @@
+{
+    "name": "tolgee/php-example",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jan Cizmar",
+            "email": "cizmar@chlupac.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "tolgee/core": "main-dev",
+        "vlucas/phpdotenv": "5.3.x-dev"
+    }
+}
