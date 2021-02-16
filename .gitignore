@@ -1,4 +1,4 @@
 vendor
-examples.tolgee.php.iml
+**/*.iml
 node_modules
 .env
