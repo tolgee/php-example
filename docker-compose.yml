@@ -1,0 +1,10 @@
+version: '3'
+services:
+  tolgee_php_example_php:
+    image: tolgee/php:7.3-cli
+    volumes:
+      - "./:/data"
+    ports:
+      - 8105:80
+    command: [ "php", "-S", "0.0.0.0:80" ]
+    working_dir: /data

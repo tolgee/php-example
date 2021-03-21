@@ -9,13 +9,19 @@ class TolgeeManager
 {
     private $tolgee;
     private $config;
+    private $lang;
+
+    public function __construct($lang)
+    {
+        $this->lang = $lang;
+    }
 
     public function getTolgee(): Tolgee
     {
         if ($this->tolgee === null) {
             $this->tolgee = new Tolgee($this->getConfig());
         }
-        $this->tolgee->setCurrentLang($_GET["lang"]);
+        $this->tolgee->setCurrentLang($this->lang);
         return $this->tolgee;
     }
 
@@ -26,7 +32,8 @@ class TolgeeManager
                 $this->config = new TolgeeConfig();
                 $this->config->apiKey = $_ENV["TOLGEE_API_KEY"];
                 $this->config->apiUrl = $_ENV["TOLGEE_API_URL"];
-                $this->config->mode = $_ENV["TOLGEE_MODE"];
+                $this->config->mode = $_ENV["TOLGEE_API_KEY"] ? Modes::DEVELOPMENT : Modes::PRODUCTION;
+                $this->config->localFilesAbsolutePath = __DIR__ . "/i18n";
             }
             return $this->config;
         }
@@ -34,7 +41,7 @@ class TolgeeManager
 
     public function getTolgeeFrontendPart(): string
     {
-        if ($this->getTolgee()->$_ENV["TOLGEE_MODE"] !== Modes::DEVELOPMENT) {
+        if ($this->getConfig()->mode !== Modes::DEVELOPMENT) {
             return '';
         }
         return '
@@ -56,7 +63,7 @@ class TolgeeManager
         }
     });
 
-    tg.lang = "' . $_GET["lang"] . '"
+    tg.lang = "' . $this->lang . '"
     tg.run().then(() => {
         document.getElementById("loading").style.display = "none";
     })

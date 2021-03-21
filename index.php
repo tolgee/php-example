@@ -4,7 +4,9 @@ require_once __DIR__ . "/vendor/autoload.php";
 require "TolgeeManager.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-$tolgeeManager = new TolgeeManager();
+
+$lang = array_key_exists("lang", $_GET) ? $_GET["lang"] : "en";
+$tolgeeManager = new TolgeeManager($lang);
 
 function t(string $key, array $params = [], $noWrap = false): string
 {
@@ -25,8 +27,8 @@ function t(string $key, array $params = [], $noWrap = false): string
 <?= $tolgeeManager->getTolgeeFrontendPart() ?>
 <div id="root">
     <select id="languageSelect" aria-label="<?= t("language_select_aria_label") ?>>">
-        <option value="en" <?= $_GET["lang"] === "en" ? "selected" : "" ?>>English</option>
-        <option value="cs" <?= $_GET["lang"] === "cs" ? "selected" : "" ?>>Česky</option>
+        <option value="en" <?= $lang === "en" ? "selected" : "" ?>>English</option>
+        <option value="cs" <?= $lang === "cs" ? "selected" : "" ?>>Česky</option>
     </select>
     <h1><?= t("hello_world") ?></h1>
     <p><?= t("Strings with parameters can be translated like this:") ?></p>

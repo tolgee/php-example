@@ -9,7 +9,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "tolgee/core": "main-dev",
-        "vlucas/phpdotenv": "5.3.x-dev"
+        "vlucas/phpdotenv": "5.3.x-dev",
+        "tolgee/core": "dev-main"
     }
 }
